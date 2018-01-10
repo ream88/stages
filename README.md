@@ -1,21 +1,14 @@
 # Stages
 
-**TODO: Add description**
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `stages` to your list of dependencies in `mix.exs`:
+A simple demonstration of GenStage's producer and consumer
+implementing a job queue.
 
 ```elixir
-def deps do
-  [
-    {:stages, "~> 0.1.0"}
-  ]
-end
+# Generate a few consumers, each with its unique id:
+Stages.Consumer.start_link(1)
+# ...
+Stages.Consumer.start_link(5)
+
+# Generate work (or 100 events):
+Stages.Producer.notify(100)
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/stages](https://hexdocs.pm/stages).
-
