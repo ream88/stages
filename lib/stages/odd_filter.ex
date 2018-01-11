@@ -1,7 +1,6 @@
 defmodule Stages.OddFilter do
   use GenStage
   require Integer
-  require Logger
 
   def start_link(), do: start_link([])
 
@@ -27,9 +26,6 @@ defmodule Stages.OddFilter do
   end
 
   def handle_events(events, _from, state) do
-    Logger.debug("#{__MODULE__} forwarding events: #{inspect(events)}")
-    # Simulate long running task
-    500..1500 |> Enum.random() |> :timer.sleep()
     {:noreply, events, state}
   end
 end
