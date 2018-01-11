@@ -10,7 +10,8 @@ defmodule Stages.Application do
     children = [
       # Starts a worker by calling: Stages.Worker.start_link(arg)
       # {Stages.Worker, arg},
-      Stages.Producer
+      Stages.Producer,
+      Stages.OddFilter
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

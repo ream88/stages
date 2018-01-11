@@ -2,6 +2,8 @@ defmodule Stages.Producer do
   use GenStage
   require Logger
 
+  def start_link(), do: start_link([])
+
   def start_link(_) do
     GenStage.start_link(__MODULE__, [], name: __MODULE__)
   end
@@ -10,18 +12,18 @@ defmodule Stages.Producer do
     1
     |> Range.new(limit)
     |> Enum.each(fn number ->
-      GenStage.cast(__MODULE__, IO.inspect({:notify, "event_#{number}"}))
+      GenStage.cast(__MODULE__, {:notify, "event_#{number}"})
     end)
   end
 
   # GenStage API
 
-  def init(_) do
-    {:producer, :ok}
+  def init(state) do
+    {:producer, state, dispatcher: GenStage.BroadcastDispatcher}
   end
 
   def handle_cast({:notify, event}, state) do
-    IO.inspect({:noreply, [event], state})
+    {:noreply, [event], state}
   end
 
   def handle_demand(demand, state) do
